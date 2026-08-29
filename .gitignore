@@ -3,7 +3,7 @@ __pycache__/
 venv/
 .env
 .idea/
-*.egg_info/
+*.egg-info/
 dist/
 build/
 *.pyc

@@ -16,7 +16,9 @@
 В разработке, учебный проект.
 
 ## Запуск
+В файле .env перед запуском необходимо поменять SECRET_KEY
 ```
 poetry install
 poetry run uvicorn app.main:app --reload
+cp .env.example .env
 ```

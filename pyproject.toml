@@ -1,0 +1,79 @@
+[project]
+name = "medsystem"
+version = "0.1.0"
+description = "MedSystem CRM"
+authors = [
+    {name = "Ayrat",email = "kiamovajrat1@gmail.com"}
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi (>=0.141.1,<0.142.0)",
+    "uvicorn[standard] (>=0.52.4,<0.53.0)",
+    "pydantic-settings (>=2.15.0,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.16.5,<0.17.0)",
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-asyncio (>=1.4.0,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)"
+]
+
+[tool.ruff]
+target-version = "py313"
+
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+
+preview = true
+
+select = [
+    "UP",
+    "I",
+    "E",
+    "W",
+    "F",
+    "B",
+    "C4",
+    "S",
+    "BLE",
+    "T20",
+    "T10",
+    "PT",
+    "RUF",
+    "DTZ",
+    "ERA",
+    "FURB",
+    "fast-api-redundant-response-model",
+    "fast-api-non-annotated-dependency",
+    "fast-api-unused-path-parameter"
+]
+
+ignore = [
+    "unnecessary-collection-call",
+    "ambiguous-unicode-character-string",
+    "ambiguous-unicode-character-docstring",
+    "ambiguous-unicode-character-comment",
+    "try-except-pass",
+]
+
+fixable = [
+    "I",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint.flake8-bandit]
+check-typed-exception = true

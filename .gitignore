@@ -7,3 +7,5 @@ venv/
 dist/
 build/
 *.pyc
+.ruff_cache/
+.pytest_cache/

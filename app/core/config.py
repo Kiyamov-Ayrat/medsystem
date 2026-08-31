@@ -21,11 +21,11 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_host: str
     postgres_port: int
-    #
-    # @property
-    # def database_url(self) -> str:
-    #
-    #     return (
-    #         f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
-    #         f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
-    #     )
+
+    @property
+    def database_url(self) -> str:
+
+        return (
+            f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
+            f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
+        )

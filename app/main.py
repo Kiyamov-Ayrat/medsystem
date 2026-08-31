@@ -1,3 +1,5 @@
+from typing import Annotated
+
 import uvicorn
 from fastapi import Depends, FastAPI
 from sqlalchemy import text
@@ -14,7 +16,7 @@ async def health():
 
 
 @app.get("/health_db")
-async def health_db(db: AsyncSession = Depends(get_db)):
+async def health_db(db: Annotated[AsyncSession, Depends(get_db)]):
     await db.execute(text("SELECT 1"))
     return {"status": "ok"}
 

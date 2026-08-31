@@ -8,10 +8,10 @@ from app.db.base import Base
 
 
 class UserRole(StrEnum):
-    owner = "OWNER"
-    office_manager = "OFFICE_MANAGER"
-    chief_accountant = "CHIEF_ACCOUNTANT"
-    storekeeper = "STOREKEEPER"
+    OWNER = "OWNER"
+    OFFICE_MANAGER = "OFFICE_MANAGER"
+    CHIEF_ACCOUNTANT = "CHIEF_ACCOUNTANT"
+    STOREKEEPER = "STOREKEEPER"
 
 
 class User(Base):

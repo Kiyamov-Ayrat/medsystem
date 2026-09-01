@@ -2,8 +2,7 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from app.models import UserRole
-
+from app.models.user_role import UserRole
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -27,7 +26,7 @@ class Settings(BaseSettings):
     postgres_port: int
 
     # FakeUserRole
-    dev_fake_user_role: UserRole.OWNER
+    dev_fake_user_role: str = "OWNER"
 
     @property
     def database_url(self) -> str:

@@ -1,19 +1,17 @@
 from fastapi import Depends, HTTPException, status
 
-from app.core.config import settings
 from app.models.user import User, UserRole
+from app.core.config import settings
 
 
 def get_current_user() -> User:
     return User(
         id=1,
-        email="test@example.com",
+        email="dev@example.com",
         hashed_password="",
-        full_name="Test User",
-        role=settings.dev_fake_role,
-        is_active=True,
+        full_name="Dev User",
+        role=UserRole(settings.dev_fake_user_role),
     )
-
 
 def require_role(*roles: UserRole):
     def role_checker(

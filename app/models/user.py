@@ -1,18 +1,10 @@
 from datetime import datetime
-from enum import StrEnum
 
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
-
-
-class UserRole(StrEnum):
-    OWNER = "OWNER"
-    OFFICE_MANAGER = "OFFICE_MANAGER"
-    CHIEF_ACCOUNTANT = "CHIEF_ACCOUNTANT"
-    STOREKEEPER = "STOREKEEPER"
-
+from app.models.user_role import UserRole
 
 class User(Base):
     __tablename__ = "users"
@@ -28,3 +20,7 @@ class User(Base):
         server_default=sa.func.now(),
     )
     is_active: Mapped[bool] = mapped_column(sa.Boolean, nullable=False, default=True)
+
+    operations: Mapped[list["StockOperations"]] = relationship(
+        back_populates="user",
+    )

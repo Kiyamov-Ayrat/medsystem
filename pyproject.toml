@@ -71,6 +71,7 @@ ignore = [
     "ambiguous-unicode-character-docstring",
     "ambiguous-unicode-character-comment",
     "try-except-pass",
+    "function-call-in-default-argument",
 ]
 
 fixable = [

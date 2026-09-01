@@ -1,10 +1,15 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 from app.models.user_role import UserRole
+
+if TYPE_CHECKING:
+    from app.models.warehouse import StockOperation
+
 
 class User(Base):
     __tablename__ = "users"
@@ -21,6 +26,6 @@ class User(Base):
     )
     is_active: Mapped[bool] = mapped_column(sa.Boolean, nullable=False, default=True)
 
-    operations: Mapped[list["StockOperations"]] = relationship(
+    stock_operations: Mapped[list["StockOperation"]] = relationship(
         back_populates="user",
     )

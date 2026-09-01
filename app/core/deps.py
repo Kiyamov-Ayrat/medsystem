@@ -1,5 +1,6 @@
 from fastapi import Depends, HTTPException, status
 
+from app.core.config import settings
 from app.models.user import User, UserRole
 
 
@@ -9,7 +10,7 @@ def get_current_user() -> User:
         email="test@example.com",
         hashed_password="",
         full_name="Test User",
-        role=UserRole.STOREKEEPER,
+        role=settings.dev_fake_role,
         is_active=True,
     )
 

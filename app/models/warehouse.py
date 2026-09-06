@@ -4,7 +4,6 @@ from enum import StrEnum
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
-from sqlalchemy import Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base

@@ -19,6 +19,7 @@ async def create_raw_material(
 
     db.add(material)
     await db.flush()
+    await db.commit()
 
     return material
 
@@ -61,6 +62,7 @@ async def update_raw_material(
         setattr(material, field, value)
 
     await db.flush()
+    await db.commit()
 
     return material
 
@@ -76,3 +78,4 @@ async def delete_raw_material(
 
     await db.delete(material)
     await db.flush()
+    await db.commit()

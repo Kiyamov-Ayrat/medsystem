@@ -41,7 +41,7 @@ class RawMaterialUpdateStore(BaseModel):
 
 
 class RawMaterialResponse(RawMaterialBase):
-    one_price: Decimal
+    one_price: Decimal | None
 
     model_config = {"from_attributes": True}
 

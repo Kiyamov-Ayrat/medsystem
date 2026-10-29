@@ -36,7 +36,7 @@ router = APIRouter()
 )
 async def create_material(
     data: RawMaterialCreate,
-    current_user: Annotated[User, Depends(get_current_user)],
+    current_user: Annotated[User, Depends(require_role(UserRole.OWNER))],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
     return await create_raw_material(data, db)
@@ -58,11 +58,11 @@ async def create_material_store(
 
 @router.get("/raw-materials/{name}")
 async def get_material(
-    material_name: str,
+    name: str,
     current_user: Annotated[User, Depends(get_current_user)],
     db: Annotated[AsyncSession, Depends(get_db)],
 ):
-    material = await get_raw_material(material_name, db)
+    material = await get_raw_material(name, db)
     if current_user.role in {
         UserRole.OWNER,
         UserRole.CHIEF_ACCOUNTANT,

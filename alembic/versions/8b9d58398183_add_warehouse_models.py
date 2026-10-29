@@ -1,8 +1,8 @@
 """add warehouse models
 
-Revision ID: e47f0bd0038c
+Revision ID: 8b9d58398183
 Revises: 72d7f7a5b35f
-Create Date: 2026-09-06 19:51:59.806747
+Create Date: 2026-09-07 01:19:22.807666
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'e47f0bd0038c'
+revision: str = '8b9d58398183'
 down_revision: Union[str, Sequence[str], None] = '72d7f7a5b35f'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -33,7 +33,7 @@ def upgrade() -> None:
     sa.Column('unit', sa.Enum('L', 'M', 'SHT', 'KG', 'M_SQR', 'T', name='unit'), nullable=False),
     sa.Column('min_stock', sa.Numeric(precision=10, scale=3), nullable=False),
     sa.Column('current_stock', sa.Numeric(precision=10, scale=3), nullable=False),
-    sa.Column('one_price', sa.Numeric(precision=10, scale=3), nullable=False),
+    sa.Column('one_price', sa.Numeric(precision=10, scale=3), nullable=True),
     sa.Column('supplier_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['supplier_id'], ['suppliers.id'], ),
     sa.PrimaryKeyConstraint('id'),

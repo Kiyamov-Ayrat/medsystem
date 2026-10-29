@@ -14,3 +14,10 @@ class NotFoundError(AppError):
     """Ресурс не найден"""
 
     status_code: int = field(default=404, init=False)
+
+
+@dataclass
+class ConflictError(AppError):
+    """Сырье с таким именем уже существует"""
+
+    status_code: int = field(default=409, init=False)

@@ -1,7 +1,8 @@
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.exceptions import NotFoundError
+from app.core.exceptions import ConflictError, NotFoundError
 from app.models.warehouse import RawMaterial
 from app.schemas.warehouse import (
     RawMaterialCreate,
@@ -18,8 +19,13 @@ async def create_raw_material(
     material = RawMaterial(**data.model_dump())
 
     db.add(material)
-    await db.flush()
-    await db.commit()
+
+    try:
+        await db.flush()
+        await db.commit()
+    except IntegrityError as exc:
+        await db.rollback()
+        raise ConflictError("Material with this name already exist") from exc
 
     return material
 
@@ -61,8 +67,12 @@ async def update_raw_material(
     for field, value in update_data.items():
         setattr(material, field, value)
 
-    await db.flush()
-    await db.commit()
+    try:
+        await db.flush()
+        await db.commit()
+    except IntegrityError as exc:
+        await db.rollback()
+        raise ConflictError("Material with this name already exist") from exc
 
     return material
 

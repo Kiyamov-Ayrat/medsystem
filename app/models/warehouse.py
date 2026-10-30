@@ -47,7 +47,7 @@ class RawMaterial(Base):
     name: Mapped[str] = mapped_column(sa.String(100), nullable=False, unique=True)
     unit: Mapped[Unit] = mapped_column(sa.Enum(Unit), nullable=False)
     min_stock: Mapped[Decimal] = mapped_column(sa.Numeric(10, 3), nullable=False)
-    current_stock: Mapped[Decimal] = mapped_column(sa.Numeric(10, 3), nullable=False)
+    current_stock: Mapped[Decimal] = mapped_column(sa.Numeric(10, 3), nullable=False, default=0)
     one_price: Mapped[Decimal | None] = mapped_column(sa.Numeric(10, 3), nullable=True)
 
     supplier_id: Mapped[int | None] = mapped_column(

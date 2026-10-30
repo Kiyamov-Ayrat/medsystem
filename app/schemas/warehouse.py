@@ -9,7 +9,6 @@ class RawMaterialBase(BaseModel):
     name: str
     unit: Unit
     min_stock: Decimal
-    current_stock: Decimal
 
 
 # CREATE
@@ -34,7 +33,6 @@ class RawMaterialUpdateStore(BaseModel):
     name: str | None = None
     unit: Unit | None = None
     min_stock: Decimal | None = None
-    current_stock: Decimal | None = None
 
 
 # RESPONSE
@@ -42,9 +40,10 @@ class RawMaterialUpdateStore(BaseModel):
 
 class RawMaterialResponse(RawMaterialBase):
     one_price: Decimal | None
-
+    current_stock: Decimal
     model_config = {"from_attributes": True}
 
 
 class RawMaterialResponseStore(RawMaterialBase):
+    current_stock: Decimal
     model_config = {"from_attributes": True}

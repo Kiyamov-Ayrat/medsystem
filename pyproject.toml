@@ -72,6 +72,7 @@ ignore = [
     "ambiguous-unicode-character-comment",
     "try-except-pass",
     "function-call-in-default-argument",
+    "commented-out-code",
 ]
 
 fixable = [

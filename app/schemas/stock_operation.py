@@ -12,7 +12,7 @@ class StockOperationBase(BaseModel):
 
 class StockOperationCreate(StockOperationBase):
     raw_material_id: int
-    quantity: Decimal
+    quantity: Decimal = Field(gt=0, max_digits=10, decimal_places=3)
     comment: str | None = Field(
         default=None,
         max_length=255,

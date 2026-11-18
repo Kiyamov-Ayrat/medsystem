@@ -39,11 +39,13 @@ class RawMaterialUpdateStore(BaseModel):
 
 
 class RawMaterialResponse(RawMaterialBase):
+    id: int
     one_price: Decimal | None
     current_stock: Decimal
     model_config = {"from_attributes": True}
 
 
 class RawMaterialResponseStore(RawMaterialBase):
+    id: int
     current_stock: Decimal
     model_config = {"from_attributes": True}

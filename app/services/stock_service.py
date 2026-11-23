@@ -11,7 +11,7 @@ class StockService:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def _get_material_for_update(self, raw_material_id: int) -> RawMaterial:
+    async def _get_material_for_update(self, raw_material_id: int) -> RawMaterial | None:
         result = await self.db.execute(select(RawMaterial).where(RawMaterial.id == raw_material_id).with_for_update())
         raw_material: RawMaterial = result.scalar_one_or_none()
 
@@ -51,3 +51,10 @@ class StockService:
         material.current_stock -= data.quantity
 
         return await self._create_operation_and_commit(data, user, OperationType.RASHOD)
+
+    async def create_return_material(self, data: StockOperationCreate, user: User) -> StockOperation:
+        material = await self._get_material_for_update(data.raw_material_id)
+
+        material.current_stock += data.quantity
+
+        return await self._create_operation_and_commit(data, user, OperationType.VOZVRAT)

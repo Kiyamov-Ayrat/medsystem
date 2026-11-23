@@ -43,3 +43,16 @@ async def expense(
     stock_service: Annotated[StockService, Depends(get_stock_service)],
 ):
     return await stock_service.create_expense(data, current_user)
+
+
+@router.post(
+    "/operations/return",
+    response_model=StockOperationResponse,
+    status_code=201,
+)
+async def return_material(
+    data: StockOperationCreate,
+    current_user: Annotated[User, Depends(require_role(UserRole.STOREKEEPER))],
+    stock_service: Annotated[StockService, Depends(get_stock_service)],
+):
+    return await stock_service.create_return_material(data, current_user)

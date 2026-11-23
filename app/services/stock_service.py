@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -58,3 +60,44 @@ class StockService:
         material.current_stock += data.quantity
 
         return await self._create_operation_and_commit(data, user, OperationType.VOZVRAT)
+
+    async def list_operations(
+        self,
+        raw_material_id: int | None = None,
+        operation_type: OperationType | None = None,
+        date_from: datetime | None = None,
+        date_to: datetime | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[StockOperation]:
+        query = select(StockOperation)
+
+        if raw_material_id is not None:
+            query = query.where(
+                StockOperation.raw_material_id == raw_material_id,
+            )
+        if operation_type is not None:
+            query = query.where(
+                StockOperation.operation_type == operation_type,
+            )
+
+        if date_from is not None:
+            query = query.where(
+                StockOperation.created_at >= date_from,
+            )
+        if date_to is not None:
+            query = query.where(
+                StockOperation.created_at <= date_to,
+            )
+        query = (
+            query.order_by(
+                StockOperation.created_at.desc(),
+                StockOperation.id.desc(),
+            )
+            .limit(limit)
+            .offset(offset)
+        )
+
+        result = await self.db.execute(query)
+
+        return list(result.scalars().all())

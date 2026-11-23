@@ -11,9 +11,9 @@ class StockService:
     def __init__(self, db: AsyncSession):
         self.db = db
 
-    async def _get_material_for_update(self, raw_material_id: int) -> RawMaterial | None:
+    async def _get_material_for_update(self, raw_material_id: int) -> RawMaterial:
         result = await self.db.execute(select(RawMaterial).where(RawMaterial.id == raw_material_id).with_for_update())
-        raw_material: RawMaterial = result.scalar_one_or_none()
+        raw_material: RawMaterial | None = result.scalar_one_or_none()
 
         if raw_material is None:
             raise NotFoundError("Raw material not found")
